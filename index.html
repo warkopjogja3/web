@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Warkop Jogja - Javanese Coffee Shop</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap");
+
+      /* Root warm colors */
+      :root {
+        --coffee-brown: #6f4c3e;
+        --cream: #f5f1e9;
+        --clay-orange: #c4714b;
+        --dark-brown: #4b3d3d;
+        --light-brown: #a67b5b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Merriweather", serif;
+        background-color: var(--cream);
+        color: var(--dark-brown);
+        line-height: 1.6;
+        scroll-behavior: smooth;
+      }
+
+      /* HEADER */
+      header {
+        background-color: var(--coffee-brown);
+        color: var(--cream);
+        padding: 15px 1rem 15px 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        flex-shrink: 0;
+      }
+      .logo-container img {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        object-fit: contain;
+        filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+      }
+      header h1 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        font-style: normal;
+        letter-spacing: 2px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+        margin: 0;
+        white-space: nowrap;
+      }
+      nav {
+        text-align: center;
+        flex-grow: 1;
+        margin-top: 10px;
+      }
+      nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      nav ul li {
+        display: inline-block;
+      }
+      nav ul li a {
+        color: var(--cream);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        position: relative;
+        padding: 8px 6px;
+      }
+      nav ul li a::after {
+        content: "";
+        display: block;
+        height: 2px;
+        width: 0;
+        background: var(--clay-orange);
+        transition: width 0.3s;
+        position: absolute;
+        bottom: -6px;
+        left: 0;
+      }
+      nav ul li a:hover::after,
+      nav ul li a:focus::after {
+        width: 100%;
+      }
+
+      /* HERO */
+      #hero {
+        position: relative;
+        height: 420px;
+        background: url("https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0afe9cdd-038b-41bd-b459-3e039ef1eb26.png")
+          no-repeat center center/cover;
+        filter: brightness(0.65) saturate(1.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 1rem;
+      }
+      #hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, #6f4c3ecc 20%, #c4714bcc 80%);
+        mix-blend-mode: multiply;
+      }
+      .hero-content {
+        position: relative;
+        color: var(--cream);
+        max-width: 720px;
+        text-align: center;
+        z-index: 1;
+      }
+      .hero-content h2 {
+        font-size: 3rem;
+        font-weight: 700;
+        line-height: 1.1;
+        font-style: italic;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+      }
+
+      /* MENU SECTION */
+      #menu {
+        background-color: var(--cream);
+        padding: 4rem 1rem 3rem;
+        text-align: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      #menu h2 {
+        font-size: 2.7rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: var(--coffee-brown);
+      }
+      .menu-category {
+        margin-bottom: 3rem;
+      }
+      .menu-category h3 {
+        font-weight: 700;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: var(--clay-orange);
+      }
+      .menu-items-horizontal {
+        display: flex;
+        gap: 2rem;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        scroll-padding: 1rem;
+      }
+      .menu-items-horizontal::-webkit-scrollbar {
+        height: 8px;
+      }
+      .menu-items-horizontal::-webkit-scrollbar-thumb {
+        background: var(--clay-orange);
+        border-radius: 4px;
+      }
+      .menu-items-horizontal::-webkit-scrollbar-track {
+        background: var(--cream);
+      }
+      /* Menu cards horizontal style */
+      .menu-card {
+        background: #fff9f4;
+        box-shadow: 0 6px 18px rgba(111, 78, 55, 0.15);
+        border-radius: 16px;
+        display: flex;
+        flex-shrink: 0;
+        width: 420px;
+        height: 180px;
+        cursor: default;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        padding: 1.2rem;
+        gap: 1.5rem;
+        align-items: center;
+      }
+      .menu-card:hover,
+      .menu-card:focus {
+        transform: translateY(-8px);
+        box-shadow: 0 14px 40px rgba(112, 78, 55, 0.25);
+        outline: none;
+      }
+      .menu-card img {
+        border-radius: 16px;
+        box-shadow: 0 6px 12px rgba(111, 76, 62, 0.2);
+        width: 140px;
+        height: 140px;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+      .menu-card-content {
+        text-align: left;
+        flex-grow: 1;
+      }
+      .menu-card-content h4 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--coffee-brown);
+      }
+      .menu-card-content p {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--clay-orange);
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* ABOUT US */
+      #about {
+        background-color: #fff8f2;
+        padding: 4rem 1rem 4rem;
+        max-width: 1100px;
+        margin: 0 auto 4rem auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3rem;
+        align-items: center;
+        justify-content: center;
+        border-radius: 16px;
+        box-shadow: 0 10px 32px rgba(196, 113, 75, 0.12);
+      }
+      #about h2 {
+        flex-basis: 100%;
+        font-size: 2.7rem;
+        font-weight: 700;
+        color: var(--coffee-brown);
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+      .about-text {
+        flex: 1 1 360px;
+        font-size: 1.1rem;
+        line-height: 1.5;
+        color: var(--dark-brown);
+      }
+      .about-text strong {
+        color: var(--clay-orange);
+      }
+      .about-image {
+        flex: 1 1 280px;
+        max-width: 280px;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(111, 76, 62, 0.3);
+      }
+      .about-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* FOOTER */
+      footer {
+        background-color: var(--coffee-brown);
+        color: var(--cream);
+        text-align: center;
+        padding: 2rem 1rem;
+      }
+      .footer-content p {
+        margin: 0.3rem 0;
+        font-size: 1rem;
+      }
+      .social-icons {
+        margin: 1rem 0 1.5rem;
+      }
+      .social-icons a {
+        color: var(--cream);
+        margin: 0 0.6rem;
+        font-size: 1.8rem;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        vertical-align: middle;
+      }
+      .social-icons a:hover,
+      .social-icons a:focus {
+        color: var(--clay-orange);
+      }
+      .social-icons svg {
+        vertical-align: middle;
+        width: 24px;
+        height: 24px;
+      }
+
+      /* Scroll fade animation */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 900px) {
+        #about {
+          flex-direction: column;
+          text-align: center;
+        }
+        .about-text,
+        .about-image {
+          flex: none;
+          max-width: 100%;
+        }
+        /* Adjust menu cards to smaller width and vertical stacking */
+        .menu-items-horizontal {
+          flex-direction: column;
+          overflow-x: visible;
+          gap: 2rem;
+          padding: 0;
+        }
+        .menu-card {
+          width: 100%;
+          height: auto;
+          flex-direction: row;
+          max-width: 420px;
+          margin: 0 auto;
+          padding: 1rem;
+        }
+        .menu-card img {
+          width: 120px;
+          height: 120px;
+        }
+      }
+      @media (max-width: 640px) {
+        header {
+          justify-content: center;
+          gap: 0.5rem;
+          padding: 15px 0.75rem;
+        }
+        nav {
+          width: 100%;
+          margin-top: 8px;
+        }
+        nav ul {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+        nav ul li {
+          display: block;
+          margin: 0;
+        }
+      }
+    </style>
+
+    <!-- Google Material Icons CDN -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo-container">
+        <img
+          src="logo.png"
+          alt="Logo of Kopi Ndeso coffee shop featuring a stylized batik motif and coffee bean in purple and cream colors"
+        />
+        <h1>Warung Kopi Jogja</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section id="hero">
+      <div class="hero-content fade-in">
+        <h2>Ada Rasa Adapula Cerita</h2>
+      </div>
+    </section>
+
+    <section id="menu">
+      <h2 class="fade-in">Menu Pilihan</h2>
+
+      <div class="menu-category fade-in">
+        <h3>Makanan</h3>
+        <div
+          class="menu-items-horizontal"
+          tabindex="0"
+          aria-label="Main food menu items"
+        >
+          <article class="menu-card" tabindex="0">
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fb5c403d-62c5-4b2c-a47b-30d7d4f30293.png"
+              alt="Traditional Javanese Nasi Gudeg dish with rice and jackfruit stew"
+            />
+            <div class="menu-card-content">
+              <h4>Nasi Gudeg</h4>
+              <p>Rp 55.000</p>
+            </div>
+          </article>
+          <article class="menu-card" tabindex="0">
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/cfa17ad4-f125-4104-8767-c9ec0c75a96d.png"
+              alt="Soto Babat - Javanese tripe soup with herbs and spices"
+            />
+            <div class="menu-card-content">
+              <h4>Soto Babat</h4>
+              <p>Rp 62.500</p>
+            </div>
+          </article>
+          <article class="menu-card" tabindex="0">
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3652142e-b079-426f-b5c4-031f0917b676.png"
+              alt="Bakpia Pathok, sweet mung bean pastry, Javanese traditional dessert"
+            />
+            <div class="menu-card-content">
+              <h4>Bakpia Pathok</h4>
+              <p>Rp 30.000</p>
+            </div>
+          </article>
+          <article class="menu-card" tabindex="0">
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a2109bb6-0c8e-4c88-8d48-c810203e3582.png"
+              alt="Ayam Geprek - spicy crushed fried chicken served with rice"
+            />
+            <div class="menu-card-content">
+              <h4>Ayam Geprek</h4>
+              <p>Rp 47.500</p>
+            </div>
+          </article>
+          <article class="menu-card" tabindex="0">
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8cbb473d-6af8-4750-bb8f-bee6cfaf4613.png"
+              alt="Tempeh Goreng - fried tempeh, a popular Javanese snack"
+            />
+            <div class="menu-card-content">
+              <h4>Tempeh Goreng</h4>
+              <p>Rp 35.000</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="menu-category fade-in">
+        <h3>Minuman</h3>
+        <div
+          class="menu-items-horizontal"
+          tabindex="0"
+          aria-label="Drink menu items"
+        >
+          <article class="menu-card" tabindex="0">
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/21d9d27c-30d7-4f3c-8e69-5a5790a27e49.png"
+              alt="Cup of Javanese Toraja Coffee with batik patterned saucer"
+            />
+            <div class="menu-card-content">
+              <h4>Toraja Coffee</h4>
+              <p>Rp 37.500</p>
+            </div>
+          </article>
+          <article class="menu-card" tabindex="0">
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a2e6845f-ff9c-46b4-9396-127ffa0627e0.png"
+              alt="Traditional clay cup of Robusta Ndeso Roast coffee on wooden coaster"
+            />
+            <div class="menu-card-content">
+              <h4>Robusta Ndeso</h4>
+              <p>Rp 29.000</p>
+            </div>
+          </article>
+          <article class="menu-card" tabindex="0">
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c0141886-0150-4c7d-8d07-9f26115b9f3c.png"
+              alt="Pouring of Arabica honey coffee into batik patterned cup"
+            />
+            <div class="menu-card-content">
+              <h4>Arabica Honey</h4>
+              <p>Rp 45.000</p>
+            </div>
+          </article>
+          <article class="menu-card" tabindex="0">
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df33681f-b342-4f83-a9a9-d2de53a96aa1.png"
+              alt="Refreshing iced Es Kopyor drink served in traditional glass"
+            />
+            <div class="menu-card-content">
+              <h4>Es Kopyor</h4>
+              <p>Rp 32.500</p>
+            </div>
+          </article>
+          <article class="menu-card" tabindex="0">
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ab04058e-c9a2-4a1c-b1ea-fb947a5c6568.png"
+              alt="Traditional warm ginger drink Wedang Jahe in ceramic cup"
+            />
+            <div class="menu-card-content">
+              <h4>Wedang Jahe</h4>
+              <p>Rp 30.000</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2 class="fade-in">Tentang Kami</h2>
+      <div class="about-text fade-in">
+        <p style="text-align: justify;"></p>Di tengah sibuknya aktivitas, kami"
+          Warkop Jogja" hadir membawa suasana Jawa dan Jogja dengan konsep
+          kekinian. Ada beberapa makanan, minuman, dan tembang Jawa untuk menjadi
+          pilihan buat kamu yang ingin nongkrong disini. Bukan sekedar tempat nongkrong, tapi
+          ruang kumpul bagi semua kalangan termasuk anak muda.
+        </p>
+        <p>
+          Di sini, kamu tidak hanya cuma memesan makanan, tetapi bisa menitipkan cerita
+          dari tiap masakan yang ada. Karena setiap masakan punya rasa, dan setiap rasa
+          punya cerita.
+        </p>
+      </div>
+      <div class="about-image fade-in" tabindex="0">
+        <img
+          src="IMG_22Warkop jogja depan94.png"
+          alt="Portrait of the Kopi Ndeso shop owner wearing traditional Javanese attire with a batik scarf standing in front of the coffee shop surrounded by wooden carvings"
+        />
+      </div>
+    </section>
+
+    <footer id="contact">
+      <div class="footer-content fade-in">
+        <p>Follow us on social media</p>
+        <div class="social-icons" aria-label="Social media links">
+          <a href="#" aria-label="Facebook" title="Facebook">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                d="M22.675 0h-21.35C.594 0 0 .593 0 1.326v21.348C0 23.406.594 24 1.325 24H12.82v-9.294H9.692V11.18h3.127V8.413c0-3.1 1.893-4.788 4.658-4.788 1.325 0 2.464.099 2.795.143v3.24l-1.917.001c-1.504 0-1.795.716-1.795 1.765v2.31h3.587l-.467 3.527h-3.12V24h6.116c.73 0 1.324-.594 1.324-1.326V1.326C24 .593 23.406 0 22.675 0z"
+              />
+            </svg>
+          </a>
+          <a href="#" aria-label="Instagram" title="Instagram">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                d="M7.75 2h8.5C18.99 2 22 5.01 22 8.75v6.5C22 18.99 18.99 22 16.25 22h-8.5C5.01 22 2 18.99 2 15.25v-6.5C2 5.01 5.01 2 7.75 2zm0 2C6.78 4 5 5.78 5 8.75v6.5C5 17.22 6.78 19 9.75 19h4.5c2.97 0 4.75-1.78 4.75-4.75v-6.5c0-2.97-1.78-4.75-4.75-4.75h-4.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.5-2.75a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z"
+              />
+            </svg>
+          </a>
+          <a href="#" aria-label="TikTok" title="TikTok">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                d="M17.34 19.517a6.816 6.816 0 01-4.146-1.436v.01a4.516 4.516 0 01-3.386 1.436c-2.555 0-4.628-2.279-4.628-5.09s2.073-5.09 4.628-5.09c.97 0 1.879.37 2.572.992v-5.777h2.573v8.92c0 1.39.984 2.52 2.23 2.83v2.602zM13.31 13.95a3.005 3.005 0 00-2.136-1.11c-1.685 0-3.052 1.582-3.052 3.53 0 1.948 1.367 3.53 3.052 3.53 1.685 0 3.052-1.582 3.052-3.53v-1.2z"
+              />
+            </svg>
+          </a>
+        </div>
+        <p>Address: Jalan Cangkurawok No.50, Dramaga, Bogor</p>
+        <p>Phone: +62 857 1440 0448 (Rizal)</p>
+        <p>Email: warkopjogja3@gmail.com</p>
+      </div>
+    </footer>
+
+    <script>
+      // Scroll fade-in animation
+      document.addEventListener("DOMContentLoaded", () => {
+        const fadeEls = document.querySelectorAll(".fade-in");
+
+        const observer = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+        );
+
+        fadeEls.forEach((el) => observer.observe(el));
+      });
+    </script>
+  </body>
+</html>
